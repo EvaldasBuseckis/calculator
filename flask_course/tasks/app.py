@@ -4,18 +4,19 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-@app.route("/")
 
-def ar_keliamieji():
-    for x in range (1900, 2100):
+
+def get_leap_year() -> list:
+    list1 = []
+    for x in range(1900, 2100):
         if x % 400 == 0 or x % 100 != 0 and x % 4 == 0:
-            return x
-        else:
-            return None
+            list1.append(x)
+    return  list1
 
+@app.route("/")
 def home():
-    vardai = ['Jonas', 'Antanas', 'Petras']
-    return render_template("index.html", sarasas=ar_keliamieji)
+    leap_years = get_leap_year()
+    return render_template("index.html", sarasas=leap_years)
 
 if __name__ == "__main__":
     app.run()
